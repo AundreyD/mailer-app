@@ -5,6 +5,8 @@ var path = require('path');
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 var title = "Mailer App";
 
+const user = process.env.USERPROFILE
+
 var config = function (env){
 
     var isDev = typeof env !== "undefined" && env === "dev" ? true : false;
@@ -16,15 +18,10 @@ var config = function (env){
         output: {
             //filename: "main-[hash].js",
             filename: "bundle.js",
-            path: path.join(__dirname, './public/'),
+            path: `${user}/git/mailer-app/backend/assets/js/`,
         },
         module: {
-            rules: [
-                {
-                    test: /\.js$/,
-                    exclude: /node_modules/,
-                    loader: "babel-loader?cacheDirectory=true"
-                },
+            loaders: [
                 {
                     test: /\.css$/,
                     use: [ "style-loader", "css-loader" ]
@@ -59,6 +56,8 @@ var config = function (env){
         watchOptions: {
             poll: true
         },
+
+      
 
         watch: isDev
     };

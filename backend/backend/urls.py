@@ -19,9 +19,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth import views as auth_views
+from django.views.generic import TemplateView
+from django.views.decorators.csrf import csrf_exempt
 
 
 urlpatterns = [
+
+    url(r'^app/', csrf_exempt(TemplateView.as_view(template_name='index.html'))),
+
 
     url(r'^login/$', auth_views.login, name='login'), 
     url(r'^logout/$', auth_views.logout, name='logout'),

@@ -24,7 +24,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 urlpatterns = [
-<<<<<<< HEAD
 
     url(r'^app/', csrf_exempt(TemplateView.as_view(template_name='index.html'))),
 
@@ -32,8 +31,6 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, name='login'), 
     url(r'^logout/$', auth_views.logout, name='logout'),
 
-=======
->>>>>>> master
     # Third party URLs
     url(r'^admin/', include(admin.site.urls), name='admin-site'),
 

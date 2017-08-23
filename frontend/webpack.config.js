@@ -1,7 +1,9 @@
 // plugins
 var webpack = require("webpack");
+var path = require('path');
+
 var HtmlWebpackPlugin = require("html-webpack-plugin");
-var title = "ROCC";
+var title = "Mailer App";
 
 var config = function (env){
 
@@ -9,12 +11,12 @@ var config = function (env){
 
     return {
         entry: {
-            app: "./src/index" //NISH
+            app: "./src/index" 
         },
         output: {
             //filename: "main-[hash].js",
             filename: "bundle.js",
-            path: "/home/app/public/",
+            path: path.join(__dirname, './public/'),
         },
         module: {
             rules: [

@@ -1,9 +1,13 @@
 {
-  "name": "ROCC_GUI",
+  "name": "Mailer App",
   "version": "0.1.0",
   "private": true,
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   "author": "ATT BizOps Incubate team",
+=======
+  "author": "Aundrey Drummond, Josh Friese",
+>>>>>>> master
   "scripts": {
     "build:dev": "node_modules/webpack/bin/webpack.js --env=dev",
     "build:prod": "node_modules/webpack/bin/webpack.js --env=prod -p",

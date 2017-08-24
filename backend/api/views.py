@@ -1,11 +1,9 @@
 from django.shortcuts import render
-
-# Create your views here.
 from django.contrib.auth.models import User
 from rest_framework import viewsets, response, permissions
 from .serializers import ListSerializer, EmailSerializer, UserSerializer
+from django.views.decorators.csrf import csrf_exempt
 from .models import List, Email
-
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -16,6 +14,9 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def retrieve(self, request, pk=None):
         if pk == 'i':
+            print(pk)
+            print(response.Response(UserSerializer(request.user,
+                                     context={'request': request}).data))
             return response.Response(UserSerializer(request.user,
                                      context={'request': request}).data)
         return super(UserViewSet, self).retrieve(request, pk)

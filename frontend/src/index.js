@@ -24,8 +24,15 @@ ReactDOM.render(
     <Router history={history}>
         <Switch>
             <Route path='/app/login/' component={Login} />
+            <Route path='/app/logout/' component={Login} />
             <Route path='/app/' component={App} onEnter={requireAuth} />
         </Switch>
     </Router>,
-    document.getElementById('app-page')    
+    document.getElementById('app-page')
 )
+
+
+
+contextTypes: {
+    router: React.PropTypes.object.isRequired
+}

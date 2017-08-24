@@ -3,13 +3,19 @@ import auth from "./auth";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-class App extends React.Component {
+export default class App extends React.Component {
 
-    getInitialState = () => {
-        return {'user': []};
+    static contextTypes = {
+        router: PropTypes.object
+    }
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            user: {}
+        };
     }
 
-    componentDidMount = () => {
+    componentWillMount = () => {
         this.loadUserData();
     }
 
@@ -18,33 +24,32 @@ class App extends React.Component {
         this
             .context
             .router
-            .replace('/app/login/');
+            .history
+            .push('/app/login/');
     }
 
     loadUserData = () => {
         axios
             .get('/api/users/i/', {
-                responseType: 'json',
-                headers: {
-                    'Authorization': 'Token ' + localStorage.token
-                }
-            })
-            .then(function (response) {
+            responseType: 'json',
+            headers: {
+                "Authorization": localStorage.token
+            }
+        })
+            .then(response => {
                 this.setState({user: response})
-            }.bind(this))
+            })
+            .catch((error) => {
+                console.log("Problem submitting New Post", error);
+            })
     }
     render() {
+        {this.state}
         return (
             <div>
-                <h1>You are now logged in, {this.state.user.username}</h1>
+                <h1>You are now logged in bro</h1>
                 <button onClick={this.logoutHandler}>Log out</button>
             </div>
         );
     };
 };
-
-contextTypes : {
-    router: React.PropTypes.object.isRequired
-}
-
-// NOT SURE ABOUT SYNTAX FOR AXIOS CALL

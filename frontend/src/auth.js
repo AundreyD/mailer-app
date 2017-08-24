@@ -1,29 +1,28 @@
+import axios from "axios";
+
 module.exports = {
     
     getToken: function (username, pass, callback) {
-        $.ajax({
-            type: 'POST',
-            url: '/api/obtain-auth-token/',
-            data: {
+        axios.post('/api/obtain-auth-token/', {
                 username: username,
                 password: pass
-            },
-            success: function (res) {
-                callback({authenticated: true, token: res.token})
-            }
+        }).then(function (response) {
+            callback({authenticated: true, token: response.token})
+        }).catch((error) => {
+            console.log("Problem submitting New Post", error);
         })
     },
-    
     login: function (username, pass, callback) {
         if (localStorage.token) {
             if (callback) {
                 callback(true)
             }
             return
-        }
-        this.getToken(username, pass, (res) => {
-            if (res.authenticated) {
-                localStorage.token = res.token
+        } 
+        this.getToken(username, pass, (response) => {
+            console.log(response)
+            if (response.authenticated) {
+                localStorage.token = response.token
                 if (callback) {
                     callback(true)
                 }
@@ -34,7 +33,7 @@ module.exports = {
             }
         });
     },
-
+    
     logout: function () {
         delete localStorage.token
     },

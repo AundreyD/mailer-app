@@ -1,65 +1,50 @@
-// import React, { Component } from 'react';
-// import logo from './logo.svg';
-// import './App.css';
-
-// class App extends Component {
-//   render() {
-//     return (
-//       <div className="App">
-//         <div className="App-header">
-//           <img src={logo} className="App-logo" alt="logo" />
-//           <h2>Welcome to React</h2>
-//         </div>
-//         <p className="App-intro">
-//           To get started, edit <code>src/App.js</code> and save to reload.
-//         </p>
-//       </div>
-//     );
-//   }
-// }
-
-// export default App;
 import React from "react";
 import auth from "./auth";
+import PropTypes from "prop-types";
+import axios from "axios";
 
-module.exports = React.createClass({
-   getInitialState: function() {
-        return {'user':[]}
-    },
+class App extends React.Component {
 
-    componentDidMount: function() {
-        this.loadUserData()
-    },
-            
-    contextTypes: {
-        router: React.PropTypes.object.isRequired
-    },
+    getInitialState = () => {
+        return {'user': []};
+    }
 
-    logoutHandler: function() {
-        auth.logout()
-        this.context.router.replace('/app/login/')
-    },
+    componentDidMount = () => {
+        this.loadUserData();
+    }
 
-    loadUserData: function() {
-        $.ajax({
-            method: 'GET',
-            url: '/api/users/i/',
-            datatype: 'json',
-            headers: {
-                'Authorization': 'Token ' + localStorage.token
-            },
-            success: function(res) {
-                this.setState(user: res)
-            }.bind(this)
-        })
-    },
+    logoutHandler = () => {
+        auth.logout();
+        this
+            .context
+            .router
+            .replace('/app/login/');
+    }
 
-    render: function() {
+    loadUserData = () => {
+        axios
+            .get('/api/users/i/', {
+                responseType: 'json',
+                headers: {
+                    'Authorization': 'Token ' + localStorage.token
+                }
+            })
+            .then(function (response) {
+                this.setState({user: response})
+            }.bind(this))
+    }
+    render() {
         return (
             <div>
-            <h1>You are now logged in, {this.state.user.username}</h1>
-            <button onClick={this.logoutHandler}>Log out</button>
+                <h1>You are now logged in, {this.state.user.username}</h1>
+                <button onClick={this.logoutHandler}>Log out</button>
             </div>
-        )        
-    }
-})
+        );
+    };
+};
+
+contextTypes : {
+    router: React.PropTypes.object.isRequired
+}
+
+// NOT SURE ABOUT SYNTAX FOR AXIOS CALL

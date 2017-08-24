@@ -2,11 +2,11 @@ import React from "react";
 import auth from "./auth";
 import App from "./App";
 import Login from "./login";
-import ReactDOM from 'react-dom'
-import { createBrowserHistory } from 'history'
-import axios from'axios'
-const history = createBrowserHistory()
-import { BrowserRouter, Route, Link, Router, Switch } from 'react-router-dom'
+import ReactDOM from 'react-dom';
+import { createBrowserHistory } from 'history';
+import { BrowserRouter, Route, Link, Router, Switch } from 'react-router-dom';
+import axios from 'axios';
+const history = createBrowserHistory();
 
 
 // import css

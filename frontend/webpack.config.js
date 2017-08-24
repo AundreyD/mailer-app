@@ -1,6 +1,7 @@
 // plugins
 var webpack = require("webpack");
 var path = require('path');
+var BundleTracker = require('webpack-bundle-tracker');
 
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 var title = "Mailer App";
@@ -49,9 +50,10 @@ var config = function (env){
             new HtmlWebpackPlugin({
                 title: title,
                 filename: "index.html",
-                template: "html/index.ejs", //NISH
+                template: "html/index.ejs", 
                 inject: "body"
-            })
+            }),
+            new BundleTracker({path:`${user}/git/mailer-app/backend/assets/js/` ,filename: 'webpack-stats.json'})
         ],
         watchOptions: {
             poll: true

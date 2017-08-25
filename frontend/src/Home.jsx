@@ -4,9 +4,6 @@ import auth from "./auth";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-
-
-
 export class Home extends Component {
     static contextTypes = {
         router: PropTypes.object
@@ -14,7 +11,7 @@ export class Home extends Component {
 
     componentWillUpdate(nextprops){
         if(this.props.hasOwnProperty('username')){
-            return this.props.usernmae.data.username
+            return this.props.username.data.username
         }else{
             return 'fix later'
         }
@@ -31,14 +28,14 @@ export class Home extends Component {
 
     renderUsername(){
         if(this.props.hasOwnProperty('username')){
-            return this.props.usernmae.data.username
+            return this.props.username.data.username
         }else{
             return 'fix later'
         }
     }
 
     render(){
-        let username = this.renderUsername()
+        let username = this.props.username
         return(
             
             <div>

@@ -1,7 +1,7 @@
 import React from "react";
 import auth from "./auth";
 import App from "./App.jsx";
-import Login from "./login.jsx";
+import Login from "./Login.jsx";
 import ReactDOM from 'react-dom';
 import { createBrowserHistory } from 'history';
 import { BrowserRouter, Route, Link, Router, Switch } from 'react-router-dom';
@@ -32,8 +32,6 @@ ReactDOM.render(
         <Provider store={store}>
             <Router history={history}>
                 <Switch>
-                    <Route path='/app/login/' component={Login} />
-                    <Route path='/app/logout/' component={Login} />
                     <Route path='/app/' component={App} onEnter={requireAuth} />
                 </Switch>
             </Router>

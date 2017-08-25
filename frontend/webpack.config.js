@@ -14,7 +14,7 @@ var config = function (env){
 
     return {
         entry: {
-            app: "./src/index" 
+            app: "./src/index.jsx" 
         },
         output: {
             //filename: "main-[hash].js",

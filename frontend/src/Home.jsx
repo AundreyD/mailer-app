@@ -4,14 +4,23 @@ import auth from "./auth";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
+
+
+
 export class Home extends Component {
     static contextTypes = {
         router: PropTypes.object
     }
 
-    componentWillUpdate(nextprops){
+    shouldComponentUpdate(nextProps){
+        console.log(this.props.username)
+        console.log(nextProps.props.username)
+        return this.props.username !== nextProps.props.username
+    }
+
+    componentDidUpdate(nextProps){
         if(this.props.hasOwnProperty('username')){
-            return this.props.username.data.username
+            return this.props.usernmae.data.username
         }else{
             return 'fix later'
         }

@@ -33,7 +33,6 @@ export class App extends React.Component {
         })
             .then(response => {
                 const data = response
-                console.log(response)
                 this
                     .props
                     .setUsername(response.data.username)
@@ -43,39 +42,48 @@ export class App extends React.Component {
             })
     }
     render() {
-        
+
         if (this.props.location.pathname == '/app/login') {
-            console.log("wtf")
             if (!this.props.homeValidation) {
                 this
                     .props
                     .addHomeValidation();
-                    console.log("THIS")
             }
         }
 
-        if (!this.props.homeValidation 
-            && this.props.location.pathname !== '/app/login') {
-                console.log("one more")
+        if (!this.props.homeValidation && this.props.location.pathname !== '/app/login') {
             window.location = '/app/login';
         }
 
         return (
             <Switch>
-                <Route path="/app/home" component={Home} {...this.props} />
-                <Route path="/app/compose" component={Compose} />
-                <Route path="/app/lists" component={Lists} />
-                <Route path='/app/login' component={Login} />
+                <Route
+                    exact
+                    path="/app/home"
+                    render={() => <Home {...this.props}/>}
+                    username={this.props.username}/>
+                <Route
+                    exact
+                    path="/app/compose"
+                    render={() => <Compose {...this.props}/>}
+                    username={this.props.username}/>
+                <Route
+                    exact
+                    path="/app/lists"
+                    render={() => <Lists {...this.props}/>}
+                    username={this.props.username}/>
+                <Route
+                    exact
+                    path="/app/login"
+                    render={() => <Login {...this.props}/>}
+                    username={this.props.username}/>
             </Switch>
         );
     };
 };
 
 const mapStateToProps = (state) => {
-    return {
-        username: state.info.username, 
-        homeValidation: state.info.homeValidation
-    }
+    return {username: state.info.username, homeValidation: state.info.homeValidation}
 }
 
 const mapDispatchToProps = (dispatch) => {

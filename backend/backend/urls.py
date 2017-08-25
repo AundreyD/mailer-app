@@ -27,10 +27,6 @@ urlpatterns = [
 
     url(r'^app/', csrf_exempt(TemplateView.as_view(template_name='index.html'))),
 
-
-    url(r'^login/$', auth_views.login, name='login'), 
-    url(r'^logout/$', auth_views.logout, name='logout'),
-
     # Third party URLs
     url(r'^admin/', include(admin.site.urls), name='admin-site'),
 

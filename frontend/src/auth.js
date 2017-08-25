@@ -1,41 +1,44 @@
+import axios from "axios";
+
 module.exports = {
-    login: function(username, pass, cb) {
-        if (localStorage.token) {
-            if (cb){ cb(true)}
-            return
-        }
-        this.getToken(username, pass, (res) => {
-            if (res.authenticated) {
-                localStorage.token = res.token
-                if (cb){ cb(true)}
-            } else {
-                if (cb){ cb(false)}
-            }
-        })
-    },        
     
-    logout: function() {
+    getToken: function (username, pass, callback) {
+        axios.post('/api/obtain-auth-token/', {
+                username: username,
+                password: pass
+        }).then(function (response) {
+            callback({authenticated: true, token: response.token})
+        }).catch((error) => {
+            console.log("Problem submitting New Post", error);
+        })
+    },
+    login: function (username, pass, callback) {
+        if (localStorage.token) {
+            if (callback) {
+                callback(true)
+            }
+            return
+        } 
+        this.getToken(username, pass, (response) => {
+            console.log(response)
+            if (response.authenticated) {
+                localStorage.token = response.token
+                if (callback) {
+                    callback(true)
+                }
+            } else {
+                if (callback) {
+                    callback(false)
+                }
+            }
+        });
+    },
+    
+    logout: function () {
         delete localStorage.token
     },
 
-    loggedIn: function() {
+    loggedIn: function () {
         return !!localStorage.token
     },
-
-    getToken: function(username, pass, cb) {
-        $.ajax({
-            type: 'POST',
-            url: '/api/obtain-auth-token/',
-            data: {
-                username: username,
-                password: pass
-            },
-            success: function(res){
-                cb({
-                    authenticated: true,
-                    token: res.token
-                })
-            }
-        })
-    }, 
 }

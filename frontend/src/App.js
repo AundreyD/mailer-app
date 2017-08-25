@@ -1,65 +1,55 @@
-// import React, { Component } from 'react';
-// import logo from './logo.svg';
-// import './App.css';
-
-// class App extends Component {
-//   render() {
-//     return (
-//       <div className="App">
-//         <div className="App-header">
-//           <img src={logo} className="App-logo" alt="logo" />
-//           <h2>Welcome to React</h2>
-//         </div>
-//         <p className="App-intro">
-//           To get started, edit <code>src/App.js</code> and save to reload.
-//         </p>
-//       </div>
-//     );
-//   }
-// }
-
-// export default App;
 import React from "react";
 import auth from "./auth";
+import PropTypes from "prop-types";
+import axios from "axios";
 
-module.exports = React.createClass({
-   getInitialState: function() {
-        return {'user':[]}
-    },
+export default class App extends React.Component {
 
-    componentDidMount: function() {
-        this.loadUserData()
-    },
-            
-    contextTypes: {
-        router: React.PropTypes.object.isRequired
-    },
+    static contextTypes = {
+        router: PropTypes.object
+    }
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            user: {}
+        };
+    }
 
-    logoutHandler: function() {
-        auth.logout()
-        this.context.router.replace('/app/login/')
-    },
+    componentWillMount = () => {
+        this.loadUserData();
+    }
 
-    loadUserData: function() {
-        $.ajax({
-            method: 'GET',
-            url: '/api/users/i/',
-            datatype: 'json',
+    logoutHandler = () => {
+        auth.logout();
+        this
+            .context
+            .router
+            .history
+            .push('/app/login/');
+    }
+
+    loadUserData = () => {
+        axios
+            .get('/api/users/i/', {
+            responseType: 'json',
             headers: {
-                'Authorization': 'Token ' + localStorage.token
-            },
-            success: function(res) {
-                this.setState(user: res)
-            }.bind(this)
+                "Authorization": localStorage.token
+            }
         })
-    },
-
-    render: function() {
+            .then(response => {
+                this.setState({user: response})
+            })
+            .catch((error) => {
+                console.log("Problem submitting New Post", error);
+            })
+    }
+    render() {
+        {this.state}
         return (
             <div>
-            <h1>You are now logged in, {this.state.user.username}</h1>
-            <button onClick={this.logoutHandler}>Log out</button>
+                <h1>You are now logged in bro</h1>
+                <button onClick={this.logoutHandler}>Log out</button>
             </div>
-        )        
-    }
-})
+        );
+    };
+};

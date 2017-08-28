@@ -12,7 +12,13 @@ export class Home extends Component {
         router: PropTypes.object
     }
 
-    componentWillUpdate(nextprops){
+    shouldComponentUpdate(nextProps){
+        console.log(this.props.username)
+        console.log(nextProps.props.username)
+        return this.props.username !== nextProps.props.username
+    }
+
+    componentDidUpdate(nextProps){
         if(this.props.hasOwnProperty('username')){
             return this.props.usernmae.data.username
         }else{
@@ -31,14 +37,14 @@ export class Home extends Component {
 
     renderUsername(){
         if(this.props.hasOwnProperty('username')){
-            return this.props.usernmae.data.username
+            return this.props.username.data.username
         }else{
             return 'fix later'
         }
     }
 
     render(){
-        let username = this.renderUsername()
+        let username = this.props.username
         return(
             
             <div>

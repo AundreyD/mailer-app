@@ -2,7 +2,7 @@ import React from "react";
 import auth from "./auth";
 import PropTypes from "prop-types";
 
-export default class Login extends React.Component {
+export class Login extends React.Component {
     constructor(props, context) {
         super(props, context);
     }
@@ -26,6 +26,7 @@ export default class Login extends React.Component {
             }
         });
     }
+
     render() {
         return (
             <form className='form-group' onSubmit={this.handleSubmit}>

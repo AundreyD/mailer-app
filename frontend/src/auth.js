@@ -1,5 +1,5 @@
 import axios from "axios";
-import cookies from "cookies";
+//import cookies from "cookies";
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 

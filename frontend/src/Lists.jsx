@@ -28,6 +28,7 @@ export class Lists extends Component {
                 <h1>View and edit lists</h1>
 
                 <h1>VISUALIZE THE LISTS IN YOUR MIND</h1>
+                <Link to="/app/home" className="btn btn-primary">Back</Link>
                 <button className={'btn btn-danger'} onClick={this.logoutHandler}>Log out</button>
             </div>
         )

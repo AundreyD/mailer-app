@@ -27,11 +27,18 @@ export class Compose extends Component {
                 <h1>Send an email</h1>
                 <form onSubmit={this.handleSubmit}>
                     <div className={'form-group'}>
-                        <select className='form-control' placeholder="pick a group"></select>
+                        <select className='form-control' placeholder="pick a group">
+                            <option>Friends</option>
+                            <option>Family</option>
+                            <option>Business</option>
+                            <option>Other</option>
+                            <option>All</option>
+                        </select>
                         <textarea className='form-control' placeholder='compose email'></textarea>
                         <input className='btn' type="submit"/>
                     </div>
                 </form>
+                <Link to="/app/home" className="btn btn-primary">Back</Link>
                 <button className={'btn btn-danger'} onClick={this.logoutHandler}>Log out</button>
             </div>
         )
